@@ -1,0 +1,29 @@
+<div class="row">
+	<h1 class="columns small-10">
+		Users
+	</h1>
+	<a href="#" class="button radius success small">New User</a>
+	<hr>
+</div>
+
+<div class="row">
+	<div class="columns small-12" ng-controller='UserListController'>
+		<ul>
+
+			<li ng-repeat="user in users">
+				<div class="row">
+					<div class="columns small-10">
+						<a href="#/userlist/{{user._id}}">
+							{{user.name}}
+						</a>
+					</div>
+					<div class="columns small-2">
+						<a ng-click="deleteUser($index)" class="button radius alert small">Delete</a>
+					</div>
+					<hr>
+				</div>
+			</li>
+
+		</ul>
+	</div>
+</div>

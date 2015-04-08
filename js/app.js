@@ -4,9 +4,9 @@ var demoApp = angular.module('demoApp', ['ngRoute', 'demoControllers', 'demoServ
 
 demoApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
-    when('/firstview', {
-    templateUrl: 'partials/firstview.html',
-    controller: 'FirstController'
+    when('/userlist/:id', {
+    templateUrl: 'partials/userdetails.html',
+    controller: 'UserDetailsController'
   }).
   when('/secondview', {
     templateUrl: 'partials/secondview.html',
@@ -16,9 +16,9 @@ demoApp.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/settings.html',
     controller: 'SettingsController'
   }).
-  when('/llamalist', {
-    templateUrl: 'partials/llamalist.html',
-    controller: 'LlamaListController'
+  when('/userlist', {
+    templateUrl: 'partials/userlist.html',
+    controller: 'UserListController'
   }).
   otherwise({
     redirectTo: '/settings'

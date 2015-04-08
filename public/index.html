@@ -2,7 +2,7 @@
 <html lang="en" ng-app='demoApp'>
 <head>
   <meta charset="UTF-8">
-  <title>MP2 Starter</title>
+  <title>MP3 Starter</title>
   <script src="./lib/angular/angular.min.js"></script>
   <script src="./lib/angular-route/angular-route.min.js"></script>
 
@@ -22,10 +22,11 @@
 <body>
 
 <div class="row">
-	<a class="button" href="#/settings">Settings</a>
-	<a class="button" href="#/llamalist">Llama List</a>
-  <a class="button" href="#/firstview">First View</a>
-  <a class="button" href="#/secondview">Second View</a>
+  <div class="columns small-12">
+    <a class="button" href="#/settings">Settings</a>
+    <a class="button" href="#/userlist">Users</a>
+    <a class="button" href="#/secondview">Second View</a>
+  </div>
 </div>
 
 <div ng-view></div>
