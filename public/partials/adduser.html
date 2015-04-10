@@ -1,0 +1,48 @@
+<list ng-controller="AddUserController">
+
+    <div class="row">
+        <div class="columns small-12">
+            <h2 >
+                Add User
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="columns small-12">
+            <form data-abide>
+                <div class="name-field">
+                    <label>Full Name <small>required</small>
+                        <input ng-model="user.name" type="text" required>
+                    </label>
+                    <small class="error">Name is required and must be a string.</small>
+                </div>
+                <div class="email-field">
+                    <label>Email <small>required</small>
+                        <input ng-model="user.email" type="email" required>
+                    </label>
+                    <small class="error">An email address is required.</small>
+                </div>
+                <button ng-click="addUser()" type="submit">Submit</button>
+            </form>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="columns small-12">
+            <div  ng-hide="successAlert" data-alert class="alert-box success radius">
+                {{successMsg}}
+                <a  ng-click="hideSuccessAlert()" class="close">&times;</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="columns small-12">
+            <div  ng-hide="errorAlert" data-alert class="alert-box alert radius">
+                <!--This email already exists.-->
+                {{errorMsg}}
+                <a  ng-click="hideErrorAlert()" class="close">&times;</a>
+            </div>
+        </div>
+    </div>
+
+</list>

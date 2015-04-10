@@ -1,0 +1,66 @@
+<div class="list" ng-controller='TaskListController'>
+    <div class="row">
+        <div class="columns small-10">
+            <h2>
+                Tasks
+            </h2>
+        </div>
+        <div class="columns small-2">
+            <a  class="small button success radius">Add Task</a>
+        </div>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="small-12 columns">
+            <input ng-model="taskSubset" ng-click="updateTasks()" type="radio" name="tasks" value=false id="taskPending" checked="checked"><label for="taskPending">Pending</label>
+            <input ng-model="taskSubset" ng-click="updateTasks()" type="radio" name="tasks" value=true id="taskCompleted"><label for="taskCompleted">Completed</label>
+            <input ng-model="taskSubset" ng-click="updateTasks()" type="radio" name="tasks" value="All" id="taskAll"><label for="taskAll">All</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="columns small-6">
+            <label>Sort By:
+                <select ng-change="updateTasks()" ng-model="taskSelect">
+                    <option value="dateCreated">Date Created</option>
+                    <option value="deadline">Deadline</option>
+                    <option value="username">User Name</option>
+                    <option value="name">Task Name</option>
+                </select>
+            </label>
+        </div>
+        <div class="columns small-6">
+            <input ng-model="taskSort" ng-click="updateTasks()" type="radio" name="direction" value=1 id="sortAscending" ><label for="sortAscending">Ascending</label>
+            <input ng-model="taskSort" ng-click="updateTasks()" type="radio" name="direction" value=-1 id="sortDescending"><label for="sortDescending">Descending</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="columns small-10">
+            <a ng-click="getMoreTasks(0)" class="small button {{prevColor}}">Previous</a>
+        </div>
+        <div class="columns small-2">
+            <a ng-click="getMoreTasks(1)" class="small button {{nextColor}}">Next</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="columns small-12">
+            <ul>
+                <li ng-repeat="task in tasks">
+                    <div class="row">
+                        <hr>
+                        <div class="columns small-6">
+                            <a>{{task.name}}</a>
+                        </div>
+                        <div class="columns small-4">
+                            <p>Deadline: {{task.deadline | date : format : timezone}}</p>
+                            <p>Assigned to {{task.assignedUserName}}</p>
+                        </div>
+                        <div class="columns small-2">
+                            <a ng-click="deleteTask(task.assignedUser, task._id)" class="button radius alert small">Delete</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>

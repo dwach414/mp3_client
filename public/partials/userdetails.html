@@ -6,14 +6,57 @@
         <hr>
     </div>
     <div class="row">
-        <h2 class="columns small-6">
+        <h3 class="columns small-6">
             {{user.name}}
-        </h2>
-        <h2 class="columns small-6">
+        </h3>
+        <h3 class="columns small-6">
             {{user.email}}
-        </h2>
+        </h3>
         <hr>
     </div>
+    <div class="row">
+        <h3 class="columns small-12">
+            Pending Tasks
+        </h3>
+        <ul class="columns small-12">
 
+            <li class="row" ng-repeat="task in tasks">
+                <hr>
+                <div class="columns small-4">
+                    <a >{{task.name}}</a>
+                </div>
+                <div class="columns small-6">
+                    <p>Deadline: {{task.deadline | date : format : timezone}}</p>
+                </div>
+                <div class="columns small-2">
+                <a ng-click="setTaskCompleted(task._id, task.name, task.deadline)" class="button tiny secondary radius">Completed</a>
+                </div>
+
+
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <hr>
+        <div class="columns small-12">
+            <a ng-click="getUserCompletedTasks()" class="button info">Show Completed Tasks</a>
+        </div>
+
+    </div>
+    <div class="row">
+        <ul class="columns small-12">
+            <li class="row" ng-repeat="cTask in cTasks">
+                <hr>
+                <div class="columns small-6">
+                    <a> {{cTask.name}}</a>
+                </div>
+                <div class="columns small-6">
+                    <p>Deadline: {{cTask.deadline | date : format : timezone}}</p>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
 </div>
 
