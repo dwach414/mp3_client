@@ -6,7 +6,7 @@
             </h2>
         </div>
         <div class="columns small-2">
-            <a  class="small button success radius">Add Task</a>
+            <a href="#/addtask"  class="small button success radius">Add Task</a>
         </div>
         <hr>
     </div>
@@ -23,7 +23,7 @@
                 <select ng-change="updateTasks()" ng-model="taskSelect">
                     <option value="dateCreated">Date Created</option>
                     <option value="deadline">Deadline</option>
-                    <option value="username">User Name</option>
+                    <option value="assignedUserName">User Name</option>
                     <option value="name">Task Name</option>
                 </select>
             </label>
@@ -48,7 +48,7 @@
                     <div class="row">
                         <hr>
                         <div class="columns small-6">
-                            <a>{{task.name}}</a>
+                            <a href="#/tasklist/{{task._id}}">{{task.name}}</a>
                         </div>
                         <div class="columns small-4">
                             <p>Deadline: {{task.deadline | date : format : timezone}}</p>

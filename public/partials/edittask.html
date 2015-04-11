@@ -1,0 +1,66 @@
+<div class="list" ng-controller="EditTaskController">
+    <div class="row">
+        <div class="columns small-12">
+            <h2>
+                Edit
+            </h2>
+        </div>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="columns">
+            <form data-abide>
+                <div class="name-field">
+                    <label>Name <small>required</small>
+                        <input ng-model="task.name" type="text" required>
+                    </label>
+                    <small class="error">Name is required and must be a string.</small>
+                </div>
+                <div class="description-field">
+                    <label>Description
+                        <input ng-model="task.description" type="text">
+                    </label>
+                </div>
+                <div class="dealine-field">
+                    <label>Deadline <small>required</small>
+                        <datepicker>
+                            <input ng-model="task.deadline" type="datetime" required/>
+                        </datepicker>
+                    </label>
+                    <small class="error">A deadline is required.</small>
+                </div>
+                <div class="assignuser-field">
+                    <label>Sort By:
+                        <select  ng-options="item._id as item.name for item in users" ng-model="task.assignedUser">
+                            <option value="">Unassigned</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="completed-field">
+                    <label>Completed</label>
+                    <input type="radio" name="completed" ng-model="task.completed" ng-value="true" id="completedYes"><label for="completedYes">Yes</label>
+                    <input type="radio" name="completed" ng-model="task.completed" ng-value="false" id="completedNo"><label for="completedNo">No</label>
+                </div>
+                <button ng-click="editTask()" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="columns small-12">
+            <div  ng-hide="successAlert" data-alert class="alert-box success radius">
+                {{successMsg}}
+                <a  ng-click="hideSuccessAlert()" class="close">&times;</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="columns small-12">
+            <div  ng-hide="errorAlert" data-alert class="alert-box alert radius">
+                <!--This email already exists.-->
+                {{errorMsg}}
+                <a  ng-click="hideErrorAlert()" class="close">&times;</a>
+            </div>
+        </div>
+    </div>
+
+</div>

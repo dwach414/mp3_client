@@ -23,7 +23,7 @@
             <li class="row" ng-repeat="task in tasks">
                 <hr>
                 <div class="columns small-4">
-                    <a >{{task.name}}</a>
+                    <a href="#/tasklist/{{task._id}}">{{task.name}}</a>
                 </div>
                 <div class="columns small-6">
                     <p>Deadline: {{task.deadline | date : format : timezone}}</p>
@@ -48,7 +48,7 @@
             <li class="row" ng-repeat="cTask in cTasks">
                 <hr>
                 <div class="columns small-6">
-                    <a> {{cTask.name}}</a>
+                    <a href="#/tasklist/{{cTask._id}}"> {{cTask.name}}</a>
                 </div>
                 <div class="columns small-6">
                     <p>Deadline: {{cTask.deadline | date : format : timezone}}</p>

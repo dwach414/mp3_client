@@ -36,6 +36,12 @@ demoControllers.controller('UserDetailsController', ['$scope', 'Users', '$routeP
 
 }]);
 
+demoControllers.controller('TaskDetailsController', ['$scope', 'Tasks', '$routeParams', function($scope, Tasks, $routeParams){
+    Tasks.getTask($routeParams.id).success(function(data){
+       $scope.task = data.data;
+    });
+}]);
+
 demoControllers.controller('TaskListController', ['$scope', 'Tasks', function ($scope, Tasks) {
 
     $scope.taskSubset = "false";
@@ -162,6 +168,115 @@ demoControllers.controller('AddUserController', ['$scope', '$window', 'Users', f
             });
         }
     }
+
+}]);
+
+demoControllers.controller('EditTaskController', ['$scope', '$window', 'Tasks', 'Users', '$routeParams', function($scope, $window, Tasks, Users, $routeParams){
+    Users.get().success(function(data){
+        $scope.users = data.data;
+    });
+    var addTaskFunc = function(task){
+        Tasks.updateTask(task).success(function(data){
+            $scope.successMsg = data.message;
+            $scope.successAlert = false;
+        }).error(function (data){
+            $scope.errorMsg = data.message;
+            $scope.errorAlert = false;
+        });
+    }
+
+    var isSame = function(task1, task2){
+        return (task1.name == task2.name && task1._id == task2._id && task1.description == task2.description &&
+                task1.deadline == task2.deadline && task1.completed == task2.completed &&
+                task1.assignedUser == task2.assignedUser && task1.assignedUserName == task2.assignedUserName &&
+                task1.dateCreated == task2.dateCreated);
+    }
+
+
+    Tasks.getTask($routeParams.id).success(function(data){
+       $scope.task = data.data;
+        var comp = JSON.parse(JSON.stringify(data.data));
+        var assignedUser = JSON.parse(JSON.stringify( data.data.assignedUser));
+        $scope.editTask = function(){
+            if(!isSame(comp, $scope.task)){
+                if(assignedUser != ""){
+                    if(assignedUser != $scope.task.assignedUser || $scope.task.completed == true){
+                        Users.removePendingTask(assignedUser, $routeParams.id)
+                    }
+                }
+                if($scope.task.assignedUser){
+                    Users.getUser($scope.task.assignedUser).success(function(data){
+                        $scope.task.assignedUserName = data.data.name;
+                        addTaskFunc($scope.task);
+                    });
+                } else {
+                    $scope.task.assignedUserName = "unassigned";
+                    addTaskFunc($scope.task);
+                }
+            }
+            comp = JSON.parse(JSON.stringify($scope.task));
+            assignedUser = JSON.parse(JSON.stringify($scope.task.assignedUser));
+        }
+    });
+
+
+    $scope.successAlert = true;
+    $scope.hideSuccessAlert = function () {
+        $scope.successAlert = true;
+    }
+    $scope.errorAlert = true;
+    $scope.hideErrorAlert = function () {
+        $scope.errorAlert = true;
+    }
+
+
+    $scope.errorMsg = "";
+    $scope.successMsg = "";
+
+
+
+}]);
+
+demoControllers.controller('AddTaskController', ['$scope', '$window', 'Tasks', 'Users', function($scope, $window, Tasks, Users){
+    Users.get().success(function(data){
+       $scope.users = data.data;
+    });
+
+    $scope.successAlert = true;
+    $scope.hideSuccessAlert = function () {
+        $scope.successAlert = true;
+    }
+    $scope.errorAlert = true;
+    $scope.hideErrorAlert = function () {
+        $scope.errorAlert = true;
+    }
+
+    $scope.addTask = function(){
+        if($scope.task.assignedUser){
+            Users.getUser($scope.task.assignedUser).success(function(data){
+                $scope.task.assignedUserName = data.data.name;
+                addTaskFunc($scope.task);
+            });
+        } else {
+            $scope.task.assignedUserName = "unassigned";
+            addTaskFunc($scope.task);
+        }
+    };
+
+    $scope.errorMsg = "";
+    $scope.successMsg = "";
+
+    var addTaskFunc = function(task){
+        Tasks.addTask(task).success(function(data){
+            $scope.successMsg = data.message;
+            $scope.successAlert = false;
+        }).error(function(data){
+            $scope.errorMsg = data.message;
+            $scope.errorAlert = false;
+        })
+    }
+
+
 
 }]);
 
